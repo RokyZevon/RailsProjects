@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-	resources :events
+#	resources :events
 
 	root 'welcome#index'
 
