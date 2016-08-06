@@ -1,14 +1,14 @@
 <ul>
 <% @events.each do |event| %>
-  <li>
+	<span>
  	  <%= event.name %>
-  <%= link_to '详情', :controller => 'events', :action => 'show', :id => event %>
-  <%= link_to '编辑', :controller => 'events', :action => 'edit', :id => event %>
-	<%= link_to '删除', :controller => 'events', :action => 'destroy', :id => event%>
-  </li>
+  <%= link_to '详情', event_path( event ) %>
+  <%= link_to '编辑', edit_event_path( event ) %>
+	<%= button_to '删除', event_path( event ),  method: :delete, data:{ confirm: "确定删除？" } %> <!-- I dont understand why the links and button cant be in the same line -->
+	</span>
 <% end %>
 <br />
 <br />
 <%= paginate @events %>
 </ul>
-<%= link_to '新建 Event', :controller => 'events', :action => 'new' %>
+<%= link_to '新建 Event', new_event_path %>
