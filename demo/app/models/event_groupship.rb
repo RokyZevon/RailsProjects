@@ -1,0 +1,2 @@
+class EventGroupship < ApplicationRecord
+end
