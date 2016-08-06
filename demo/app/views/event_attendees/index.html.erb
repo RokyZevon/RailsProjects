@@ -1,0 +1,13 @@
+<ul>
+	<% @attendees.each do |attendee| %>
+		<li>
+		<%= attendee.name %>
+		<%= link_to '详情', event_attendee_path( @event, attendee ) %>
+		<%= link_to '编辑', edit_event_attendee_path( @event, attendee ) %>
+		<%= link_to '删除', event_attendee_path( @event, attendee ), method: :delete, data:{ confirm: "确定删除?" } %>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to '新建与会者', new_event_attendee_path( @event ) %>
+<%= link_to '返回 Events', events_path %>

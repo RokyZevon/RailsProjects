@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-	resources :events
-
 	root 'welcome#index'
+
+	resources :events do
+		resources :attendees, controller: 'event_attendees'
+	end
 
 	get 'welcome', to: 'welcome#index'
 
