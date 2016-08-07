@@ -1,0 +1,22 @@
+<h1><%= @event.name %></h1>
+
+<% if @event.location %>
+
+	<p>
+	Location list:<br>
+	<%= @event.location.name %>
+	</p>
+	<p>
+	<%= link_to '编辑', edit_event_location_path( @event ) %>
+	</p>
+	<p>
+	<%= link_to '删除', event_location_path( @event ), method: :delete %>
+	</p>
+<% else %>
+	<p>
+	N/A
+	</p>
+	<p>
+	<%= link_to "新增地点", new_event_location_path( @event ) %>
+	</p>
+<% end %>
