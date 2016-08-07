@@ -63,7 +63,7 @@ class EventsController < ApplicationController
 	
 	# 白名单
 	def event_params
-		params.require( :event ).permit( :name, :description, :category_id )
+		params.require( :event ).permit( :name, :description, :category_id, location_attributes: [ :id, :name, :_destroy ] )
 	end
 
 	# before_action

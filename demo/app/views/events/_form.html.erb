@@ -5,3 +5,16 @@
 <%= f.text_area :description %>
 
 <%= f.collection_select( :category_id, Category.all, :id, :name ) %>
+
+<!-- Location -->
+<%= f.field_for :location do |location_form| %>
+	<p>
+	<%= location_form.label :name, "地点名" %>
+	<%= location_form.text_field :name %>
+
+	<% unless location_form.object.new_record? %>
+		<%= location_form.label :_destroy, '删除' %>
+		<%= location_form.check_box :_destroy %>
+	<% end %>
+	</p>
+<% end %>
