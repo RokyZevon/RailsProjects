@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
     collection do
       get :latest
+      #post :bulk_delete # bulk => "块"
+      post :bulk_update
     end
 	end
 
