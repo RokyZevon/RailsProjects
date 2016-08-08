@@ -4,6 +4,13 @@ Rails.application.routes.draw do
 
 	resources :events do
 		resources :attendees, controller: 'event_attendees'
+		resource :location, controller: 'event_locations'
+
+    collection do
+      get :latest
+      #post :bulk_delete # bulk => "块"
+      post :bulk_update
+    end
 	end
 
 	get 'welcome', to: 'welcome#index'

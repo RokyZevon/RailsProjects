@@ -1,6 +1,14 @@
 <%= @event.name %>
 <%= simple_format( @event.description ) %>
-
+<p>
+Category: <%= @event.category_name %>  <!-- NOT '@event.category.name' -->
+</p>
+<p>
+Group:
+<% @event.groups.each do |g| %>
+	<%= g.name %>
+<% end %>
+</p>
 <p>
 <%= link_to '返回 index', events_path %>
 </p>

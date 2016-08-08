@@ -20,7 +20,7 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new( event_params )
 		if @event.save
-			redirect_to events_path 
+			redirect_to events_path
 
 			flash[ :notice ] = "创建成功"
 		else
@@ -36,7 +36,7 @@ class EventsController < ApplicationController
 			format.json { render :json => { id: @event.id, name: @event.name }.to_json }
 		end
 	end
-	
+
 	def edit
 	end
 
@@ -58,12 +58,34 @@ class EventsController < ApplicationController
 		flash[ :alter ] = "删除成功"
 	end
 
+  def bulk_update
+    ids = Array( params[ :ids ] )
+    events = ids.map{ |i| Event.find_by_id( i ) }.compact
+
+    if params[ :commit ] == "Publish"
+      events.each{ |e| e.update( status: "published" ) }
+    elsif params[ :commit ] == "Delete"
+      events.each{ |e| e.destroy }
+    end
+
+    redirect_to events_url
+  end
+
+  #def bulk_delete
+    #Event.destroy_all
+    #redirect_to events_path
+  #end
+
+  def latest
+    @events = Event.order( "id DESC" ).limit( 3 )
+  end
+
 
 	private
-	
+
 	# 白名单
 	def event_params
-		params.require( :event ).permit( :name, :description )
+		params.require( :event ).permit( :name, :description, :category_id, location_attributes: [ :id, :name, :_destroy ], group_ids: [  ] )
 	end
 
 	# before_action

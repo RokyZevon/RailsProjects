@@ -3,3 +3,6 @@
 
 <%= f.label :description, "Description" %>
 <%= f.text_area :description %>
+
+<%= f.collection_select( :category_id, Category.all, :id, :name ) %>
+<%= f.collection_check_boxes( :group_ids, Group.all, :id, :name ) %>
