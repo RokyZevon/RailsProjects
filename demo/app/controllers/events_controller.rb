@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 
+  before_action :authenticate_user!
 	before_action :set_event, :only => [ :show, :edit, :update, :destroy ]
 
 	def index
@@ -78,6 +79,25 @@ class EventsController < ApplicationController
 
   def latest
     @events = Event.order( "id DESC" ).limit( 3 )
+  end
+
+  def dshboard
+    @event = Event.find( params[ :id ] )
+  end
+
+  def join
+    @event = Event.find( params[ :id ] )
+    Membership.find_or_create_by( event: @event, user: current_user )
+
+    redirect_to :back
+  end
+
+  def withdraw
+    @event = Event.find( params[ :id ] )
+    @membership = Membership.find( event: @event, user: current_user )
+    @membership.destroy
+
+    redirect_to :back
   end
 
 

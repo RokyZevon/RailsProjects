@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
 
+  devise_for :users
+
 	root 'welcome#index'
 
 	resources :events do
 		resources :attendees, controller: 'event_attendees'
 		resource :location, controller: 'event_locations'
 
+    member do
+      get :dashboard
+      post :join
+      post :withdraw
+    end
+
     collection do
       get :latest
-      #post :bulk_delete # bulk => "块"
       post :bulk_update
+      #post :bulk_delete # bulk => "块"
     end
 	end
 

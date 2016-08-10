@@ -1,6 +1,6 @@
-<%= form_tag bulk_update_events_path do %>
+<%= form_tag bulk_update_events_path method: :get do %>
   <ul>
-  <% @events.each do |event| %>
+  <%  @events.each do |event| %>
     <li>
     <%= check_box_tag "ids[]", event.id, false %>
     <%= event.name %>
@@ -11,6 +11,8 @@
     <%= link_to "地点", event_location_path( event ) %>
     <%= link_to '编辑', edit_event_path( event ) %>
     <%= button_to '删除', event_path( event ),  method: :delete, data:{ confirm: "确定删除？" } %> <!-- I dont understand why the links and button cant be in the same line -->
+    <%= button_to 'join', join_event_path( @event ) %>
+    <%= button_to 'withdraw', withdraw_event_path( @event ) %>
     </li>
   <% end %>
   <br>
@@ -20,9 +22,8 @@
 <%= link_to '新建 Event', new_event_path %>
 <%= link_to 'Atom', events_path( format: :atom ) %>
 
-<%#<%= button_to '全部删除', bulk_delete_events_path, method: :post %>
 
-<%= submit_tag( 'Delete' ) %>
-<%= submit_tag( 'Publish' ) %>
+<%= submit_tag 'Delete' %>
+<%= submit_tag 'Publish' %>
 
 <% end %>

@@ -1,7 +1,16 @@
 <p>
-	Hola! It's <%= Time.now %>
+<% if current_user %>
+  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <%= link_to 'Chenge ur password', edit_registration_path( :user ) %>
+<% else %>
+  <%= debugger link_to 'Registration', new_registration_path( :user ) %>
+  <%= link_to 'Login', new_session_path( :user ) %>
+<% end %>
+</p>
+<p>
+Hola! It's <%= Time.now %>
 </p>
 
 <p>
-	<%= link_to 'Hello!', welcome_say_hello_path %>
+<%= link_to 'Hello!', welcome_say_hello_path %>
 </p>
