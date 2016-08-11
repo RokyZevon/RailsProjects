@@ -6,8 +6,10 @@ Category: <%= @event.category_name %>  <!-- NOT '@event.category.name' -->
 <p>
 Group:
 <% @event.groups.each do |g| %>
-	<%= g.name %>
+  <%= g.name %>
 <% end %>
+<%= button_to 'join', join_event_path( @event ) %>
+<%= button_to 'withdraw', withdraw_event_path( @event ) %>
 </p>
 <p>
 <%= link_to '返回 index', events_path %>
