@@ -4,6 +4,12 @@ class EventsController < ApplicationController
 	before_action :set_event, :only => [ :show, :edit, :update, :destroy ]
 
 	def index
+    if params[ :keyword ]
+      @events = Event.where( [ "name like ?", "%#{ params[ :keyword ] }%" ]  )
+    else
+      @events = Event.all
+    end
+
 		@events = Event.page( params[ :page ] ).per( 5 )
 
 		respond_to do |format|
@@ -87,15 +93,25 @@ class EventsController < ApplicationController
 
   def join
     @event = Event.find( params[ :id ] )
-    Membership.find_or_create_by( event: @event, user: current_user )
+
+    if  Membership.find_or_create_by( event: @event, user: current_user )
+      flash[ :notice ] = "加入成功"
+    else
+      flash[ :alter ] = "加入失败"
+    end
 
     redirect_to :back
   end
 
   def withdraw
     @event = Event.find( params[ :id ] )
-    @membership = Membership.find( event: @event, user: current_user )
-    @membership.destroy
+
+    if  @membership = Membership.find( event: @event, user: current_user )
+      @membership.destroy
+      flash[ :notice ] = "退出成功"
+    else
+		  flash[ :alter ] = "删除成功"
+    end
 
     redirect_to :back
   end

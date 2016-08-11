@@ -1,3 +1,7 @@
+<%= form_tag events_path, method: :get do %>
+  <%= text_field_tag 'keyword' %>
+  <%= submit_tag '搜索' %>
+<% end %>
 <%= form_tag bulk_update_events_path method: :get do %>
   <ul>
   <%  @events.each do |event| %>
@@ -11,8 +15,6 @@
     <%= link_to "地点", event_location_path( event ) %>
     <%= link_to '编辑', edit_event_path( event ) %>
     <%= button_to '删除', event_path( event ),  method: :delete, data:{ confirm: "确定删除？" } %> <!-- I dont understand why the links and button cant be in the same line -->
-    <%= button_to 'join', join_event_path( @event ) %>
-    <%= button_to 'withdraw', withdraw_event_path( @event ) %>
     </li>
   <% end %>
   <br>
