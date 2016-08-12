@@ -2,6 +2,8 @@
   <%= text_field_tag 'keyword' %>
   <%= submit_tag '搜索' %>
 <% end %>
+<%= link_to 'Sort by Name', events_path( order: "name" ) %>
+<%= link_to 'Sort by Default', events_path %>
 <%= form_tag bulk_update_events_path method: :get do %>
   <ul>
   <%  @events.each do |event| %>
