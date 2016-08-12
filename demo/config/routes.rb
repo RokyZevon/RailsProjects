@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
 	root 'welcome#index'
 
+  namespace :admin do
+    resources :events
+  end
+
 	resources :events do
 		resources :attendees, controller: 'event_attendees'
 		resource :location, controller: 'event_locations'

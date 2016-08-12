@@ -12,6 +12,9 @@ class EventsController < ApplicationController
 
 		@events = Event.page( params[ :page ] ).per( 5 )
 
+    sort_by = ( params[ :order ] == 'name' ) ? 'name' : 'created_at'
+    @events = Event.order( sort_by ).page( params[ :page ].per( 5 ) )
+
 		respond_to do |format|
 			format.html # index.html.erb
 			format.xml { render xml: @events.to_xml }
@@ -110,7 +113,7 @@ class EventsController < ApplicationController
       @membership.destroy
       flash[ :notice ] = "退出成功"
     else
-		  flash[ :alter ] = "删除成功"
+		  flash[ :alter ] = "推出失败"
     end
 
     redirect_to :back
