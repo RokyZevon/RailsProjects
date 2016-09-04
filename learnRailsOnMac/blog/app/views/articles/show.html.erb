@@ -1,0 +1,20 @@
+<p>
+<strong>Title:</strong>
+<%= @article.title %>
+</p>
+<p>
+<strong>Text:</strong>
+<%= @article.text %>
+</p>
+
+<br>
+
+<h2>文章评论：</h2>
+<%= render @article.comments %>
+<br>
+
+<h2>添加评论：</h2>
+<%= render "comments/form" %>
+
+<%= link_to '编辑', edit_article_path( @article ) %>
+<%= link_to '返回', articles_path %>
