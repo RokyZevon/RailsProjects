@@ -1,0 +1,39 @@
+<h1>New Article</h1>
+
+<%= form_for :article, url: articles_path do |f| %>
+	<!--
+		使用 @article.errors.any? 检查是否有错误，如果有错误，使用 @article.errors.full_messages 显示错误。
+		pluralize 是 Rails 提供的帮助方法，接受一个数字和字符串作为参数。如果数字比 1 大，字符串会被转换成复数形式。
+		在 new 动作中加入 @article = Article.new 的原因是，如果不这么做，在视图中 @article 的值就是 nil，调用 @article.errors.any? 时会发生错误。	
+	-->
+	<!--
+		Rails 会自动把出错的表单字段包含在一个 div 中，并为其添加了一个 class：field_with_errors。我们可以定义一些样式，凸显出错的字段。
+	-->
+	<% if @article.errors.any? %>
+		<div id="error_explanation">	
+			<h2><%= pluralize( @article.errors.count, "error" ) %>
+			<!-- prohibit -> "禁止" -->
+			prohibited this article from being saved: </h2>
+		<ul>
+			<% @article.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<p> 
+		<%= f.label :title %><br>
+		<%= f.text_field :title %>
+	</p>
+
+	<p> 
+		<%= f.label :text %><br>
+		<%= f.text_field :text %>
+	</p>
+
+	<p> 
+		<%= f.submit %>	
+	</p>
+<% end %>
+
+<%= link_to '返回文章列表', articles_path %>
